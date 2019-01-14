@@ -1,4 +1,4 @@
-class UsersWarpController < WarpCable::Controller
+class UsersWarpController < ApplicationController
     def index(params)
         User.after_create do
             yield User.all

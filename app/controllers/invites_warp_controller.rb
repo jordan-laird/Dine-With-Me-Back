@@ -1,4 +1,4 @@
-class InvitesWarpController < WarpCable::Controller
+class InvitesWarpController < ApplicationController
     def index(params)
         Invite.after_create do
             yield Invite.all

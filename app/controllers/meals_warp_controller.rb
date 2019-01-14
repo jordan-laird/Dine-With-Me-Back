@@ -1,4 +1,4 @@
-class MealsWarpController < WarpCable::Controller
+class MealsWarpController < ApplicationController
     def index(params)
         Meal.after_create do
             yield Meal.all
