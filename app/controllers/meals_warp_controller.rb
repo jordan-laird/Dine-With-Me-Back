@@ -1,24 +1,24 @@
 class MealsWarpController < ApplicationController
     def index(params)
         Meal.after_create do
-            yield Meal.all
+            yield json: Meal.all
         end
         Meal.after_update do
-            yield Meal.all
+            yield json: Meal.all
         end
         Meal.after_destroy do
-            yield Meal.all
+            yield json: Meal.all
         end
-        yield Meal.all
+        yield json: Meal.all
     end
 
     def show(params)
         Meal.after_update do | meal |
             if(params[:id] == meal.id)
-                yield Meal.find(params[:id])
+                yield json: Meal.find(params[:id])
             end
         end
-        yield Meal.find(params[:id])
+        yield json: Meal.find(params[:id])
     end
 
     def create(params)

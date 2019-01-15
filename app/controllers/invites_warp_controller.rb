@@ -1,24 +1,24 @@
 class InvitesWarpController < ApplicationController
     def index(params)
         Invite.after_create do
-            yield Invite.all
+            yield json: Invite.all
         end
         Invite.after_update do
-            yield Invite.all
+            yield json: Invite.all
         end
         Invite.after_destroy do
-            yield Invite.all
+            yield json: Invite.all
         end
-        yield Invite.all
+        yield json: Invite.all
     end
 
     def show(params)
         Invite.after_update do | invite |
             if(params[:id] == invite.id)
-                yield Invite.find(params[:id])
+                yield json: Invite.find(params[:id])
             end
         end
-        yield Invite.find(params[:id])
+        yield json: Invite.find(params[:id])
     end
 
     def create(params)
