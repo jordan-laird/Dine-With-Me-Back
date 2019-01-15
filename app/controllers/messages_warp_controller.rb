@@ -1,24 +1,24 @@
 class MessagesWarpController < ApplicationController
     def index(params)
         Message.after_create do
-            yield Message.all
+            yield json: Message.all
         end
         Message.after_update do
-            yield Message.all
+            yield json: Message.all
         end
         Message.after_destroy do
-            yield Message.all
+            yield json: Message.all
         end
-        yield Message.all
+        yield json: Message.all
     end
 
     def show(params)
         Message.after_update do | message |
             if(params[:id] == message.id)
-                yield Message.find(params[:id])
+                yield json: Message.find(params[:id])
             end
         end
-        yield Message.find(params[:id])
+        yield json: Message.find(params[:id])
     end
 
     def create(params)
