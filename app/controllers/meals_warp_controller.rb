@@ -14,7 +14,7 @@ class MealsWarpController < ApplicationController
 
     def show(params)
         Meal.after_update do | meal |
-            if(params[:id] == meal.id)
+            if(params[:id].to_i == meal.id.to_i)
                 yield json: Meal.find(params[:id])
             end
         end

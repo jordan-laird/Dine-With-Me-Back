@@ -14,7 +14,7 @@ class InvitesWarpController < ApplicationController
 
     def show(params)
         Invite.after_update do | invite |
-            if(params[:id] == invite.id)
+            if(params[:id].to_i == invite.id.to_i)
                 yield json: Invite.find(params[:id])
             end
         end

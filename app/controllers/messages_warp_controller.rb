@@ -14,7 +14,7 @@ class MessagesWarpController < ApplicationController
 
     def show(params)
         Message.after_update do | message |
-            if(params[:id] == message.id)
+            if(params[:id].to_i == message.id.to_i)
                 yield json: Message.find(params[:id])
             end
         end
