@@ -14,7 +14,7 @@ class UsersWarpController < ApplicationController
 
     def show(params)
         User.after_update do | user |
-            if(params[:id] == user.id)
+            if(params[:id].to_i == user.id.to_i)
                 yield json: User.find(params[:id])
             end
         end
@@ -35,7 +35,7 @@ class UsersWarpController < ApplicationController
     end
 
     def user_params
-        params.permit(:first_name,:last_name,:email,:password)
+        params.permit(:first_name,:last_name,:email,:password, :lat, :long)
     end
 
 end

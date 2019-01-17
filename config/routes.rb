@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   warp_resources :invites
   warp_resources :users
   warp_resources :auth
+  warp_resources :restaurants
 
 
   
