@@ -1,15 +1,19 @@
 class MessagesWarpController < ApplicationController
     def index(params)
         Message.after_create do
-            yield json: Message.all
+            message_array = Message.all.select{ |message| message["sender_id"].to_i == params[:userID].to_i || message["receiver_id"].to_i == params[:userID].to_i }
+            yield json: message_array
         end
         Message.after_update do
-            yield json: Message.all
+            message_array = Message.all.select{ |message| message["sender_id"].to_i == params[:userID].to_i || message["receiver_id"].to_i == params[:userID].to_i }
+            yield json: message_array
         end
         Message.after_destroy do
-            yield json: Message.all
+            message_array = Message.all.select{ |message| message["sender_id"].to_i == params[:userID].to_i || message["receiver_id"].to_i == params[:userID].to_i }
+            yield json: message_array
         end
-        yield json: Message.all
+        message_array = Message.all.select{ |message| message["sender_id"].to_i == params[:userID].to_i || message["receiver_id"].to_i == params[:userID].to_i }
+            yield json: message_array
     end
 
     def show(params)
