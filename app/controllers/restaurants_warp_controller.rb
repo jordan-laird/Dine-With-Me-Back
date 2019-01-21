@@ -2,14 +2,8 @@
 class RestaurantsWarpController < ApplicationController
   def create(params)
     response = JSON.parse(RestClient.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{params[:lat]},#{params[:long]}&key=#{Figaro.env.googleKey}&radius=16093.4&type=restaurant&keyword="))
-    # restaurantArray = []
-    # response["results"].each do |restaurant| 
-    #   restaurantArray << (restaurant["name"])
-    # end
-    # puts "***************************************"
-    # puts restaurantArray
-    # restaurantDetails = []
-    # restaurantArray.each do |restaurant| JSON.parse(RestClient.get("https://maps.googleapis.com/maps/api/place/findplacefromtext/output?key=#{Figaro.env.googleKey}&input=#{restaurant}&inputtype=textquery&locationbias=circle:16093.4@#{params[:lat]},#{params[:long]}&fields=basic,contact")) << restaurantDetails
+    restaurantDetails = []
+    # response["results"].each do |restaurant| JSON.parse(RestClient.get("https://maps.googleapis.com/maps/api/place/details/output?key=#{Figaro.env.googleKey}&input=#{restaurant}&inputtype=textquery&locationbias=circle:16093.4@#{params[:lat]},#{params[:long]}&fields=basic,contact")) << restaurantDetails
     # end
     # puts restaurantDetails
     restaurantsArray = [] 

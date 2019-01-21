@@ -1,5 +1,21 @@
 class MessagesWarpController < ApplicationController
     def index(params)
+
+        # Message.after_create do
+        #     message_array = Message.all.select{ |message| message["sender_id"].to_i == 1 || message["receiver_id"].to_i == 1 }
+        #     yield json: message_array
+        # end
+        # Message.after_update do
+        #     message_array = Message.all.select{ |message| message["sender_id"].to_i == 1 || message["receiver_id"].to_i == 1 }
+        #     yield json: message_array
+        # end
+        # Message.after_destroy do
+        #     message_array = Message.all.select{ |message| message["sender_id"].to_i == 1 || message["receiver_id"].to_i == 1 }
+        #     yield json: message_array
+        # end
+        # message_array = Message.all.select{ |message| message["sender_id"].to_i == 1 || message["receiver_id"].to_i == 1 }
+        #     yield json: message_array
+
         Message.after_create do
             yield json: Message.all
         end
@@ -35,7 +51,7 @@ class MessagesWarpController < ApplicationController
     end
 
     def message_params
-        params.permit(:sender, :receiver, :unread)
+        params.permit(:sender_id, :receiver_id, :unread, :message)
     end
 
 end

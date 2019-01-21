@@ -1,5 +1,5 @@
 class ApplicationController < WarpCable::Controller
-    # before_action :check_authentication
+    # before_action :check_authentication 
     
     def check_authentication
         if !logged_in_user

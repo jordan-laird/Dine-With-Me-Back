@@ -16,7 +16,7 @@ User.create(first_name: "Allison", last_name: "Laird", email:"Allison@example.co
 User.create(first_name: "Joseph", last_name: "Laird", email:"Joseph@example.com", password: "1234")
 User.create(first_name: "Judson", last_name: "Laird", email:"Judson@example.com", password: "1234")
 User.create(first_name: "Riley", last_name: "Laird", email:"Riley@example.com", password: "1234")
-User.create(first_name: "Justin", last_name: "Laird", email:"Justin@example.com", password: "1234")
+User.create(first_name: "Justin", last_name: "Laird", email:"Justin@example.com", password: "1234", lat: 31.0982, long: 97.3428)
 
 Meal.create(starts_at: Time.now, restaurant_name:"Test1", restaurant_phone:"123456", restaurant_address:"123 ABC Ln" )
 Meal.create(starts_at: Time.now, restaurant_name:"Test2", restaurant_phone:"123456", restaurant_address:"123 ABC Ln" )
@@ -26,9 +26,9 @@ Meal.create(starts_at: Time.now, restaurant_name:"Test5", restaurant_phone:"1234
 Meal.create(starts_at: Time.now, restaurant_name:"Test6", restaurant_phone:"123456", restaurant_address:"123 ABC Ln" )
 Meal.create(starts_at: Time.now, restaurant_name:"Test7", restaurant_phone:"123456", restaurant_address:"123 ABC Ln" )
 
-Invite.create(meal_id: 4, sender_id: 4, receiver_id: 6, status: 'accepted')
-Invite.create(meal_id: 4, sender_id: 4, receiver_id: 7, status: 'accepted')
-Invite.create(meal_id: 4, sender_id: 4, receiver_id: 8, status: 'accepted')
-Invite.create(meal_id: 6, sender_id: 6, receiver_id: 9, status: 'pending')
+Invite.create(meal_id: 4, sender_id: 1, receiver_id: 6, status: 'accepted')
+Invite.create(meal_id: 4, sender_id: 4, receiver_id: 1, status: 'accepted')
+Invite.create(meal_id: 4, sender_id: 4, receiver_id: 1, status: 'accepted')
+Invite.create(meal_id: 6, sender_id: 1, receiver_id: 9, status: 'pending')
 Invite.create(meal_id: 6, sender_id: 4, receiver_id: 8, status: 'pending')
 Invite.create(meal_id: 7, sender_id: 4, receiver_id: 8, status: 'denied')
