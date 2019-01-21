@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   warp_resources :users
   warp_resources :auth
   warp_resources :restaurants
+  warp_resources :messages
 
 
   
