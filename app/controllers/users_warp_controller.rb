@@ -22,7 +22,12 @@ class UsersWarpController < ApplicationController
     end
 
     def create(params)
-        User.create(user_params)
+        byebug
+        @user = User.create(user_params)
+        # if User.exists?(email: params[:email]) # I think this should be `user_params[:email]` instead of `params[:email]`
+        #   flash[:error] = "User already exists." 
+        # else User.save
+        # end
     end
 
     def destroy(params)
@@ -35,7 +40,7 @@ class UsersWarpController < ApplicationController
     end
 
     def user_params
-        params.permit(:first_name,:last_name,:email,:password, :lat, :long)
+        params.permit(:first_name,:last_name,:email,:password, :lat, :long, :avatar)
     end
 
 end

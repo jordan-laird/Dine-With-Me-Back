@@ -15,15 +15,15 @@ class InvitesWarpController < ApplicationController
         # invite_array = Invite.all.select{ |invite| invite["sender_id"].to_i == params[:userID].to_i || invite["receiver_id"].to_i == params[:userID].to_i }
         #     yield json: invite_array
         Invite.after_create do
-            yield json: Invite.all
+            yield json: Invite.all, include: [:meal]
         end
         Invite.after_update do
-            yield json: Invite.all
+            yield json: Invite.all, include: [:meal]
         end
         Invite.after_destroy do
-            yield json: Invite.all
+            yield json: Invite.all, include: [:meal]
         end
-        yield json: Invite.all
+        yield json: Invite.all, include: [:meal]
     end
 
     def show(params)

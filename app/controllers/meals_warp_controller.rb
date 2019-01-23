@@ -22,7 +22,11 @@ class MealsWarpController < ApplicationController
     end
 
     def create(params)
-        Meal.create(meal_params)
+        @meal = Meal.create!(meal_params)
+        invite_parameters = invite_params
+        invite_parameters["meal_id"] = @meal.id
+        Invite.create!(invite_parameters)
+        
     end
 
     def destroy(params)
@@ -35,7 +39,14 @@ class MealsWarpController < ApplicationController
     end
 
     def meal_params
-        params.permit(:starts_at, :restaurant_name, :restaurant_phone, :restaurant_address, :restaurant_lat, :restaurant_lng )
+        object = params.permit(:starts_at, :restaurant_name, :restaurant_phone, :restaurant_address, :restaurant_lat, :restaurant_lng )
+        object[:starts_at] = DateTime.strptime(params["starts_at"], '%m-%d-%Y %I:%M %p')
+
+        return object
+    end
+
+    def invite_params
+        params.permit(:sender_id, :receiver_id, :status )
     end
 
 end
