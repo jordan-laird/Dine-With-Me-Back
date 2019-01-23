@@ -3,16 +3,24 @@ class RestaurantsWarpController < ApplicationController
   def create(params)
     response = JSON.parse(RestClient.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{params[:lat]},#{params[:long]}&key=#{Figaro.env.googleKey}&radius=16093.4&type=restaurant&keyword="))
     restaurantDetails = []
-    # response["results"].each do |restaurant| JSON.parse(RestClient.get("https://maps.googleapis.com/maps/api/place/details/output?key=#{Figaro.env.googleKey}&input=#{restaurant}&inputtype=textquery&locationbias=circle:16093.4@#{params[:lat]},#{params[:long]}&fields=basic,contact")) << restaurantDetails
-    # end
+    response["results"].each do |restaurant| 
+      begin
+      test = RestClient.get("https://maps.googleapis.com/maps/api/place/details/json?key=#{Figaro.env.googleKey}&placeid=#{restaurant["place_id"]}&fields=geometry,name,formatted_address,formatted_phone_number,website")
+     rescue => e
+      byebug
+      end
+      restaurantDetails << JSON.parse(test)["result"]
+
+    end
     # puts restaurantDetails
     restaurantsArray = [] 
     
-    response["results"].map{ |restaurant|
+    restaurantDetails.map{ |restaurant|
       restaurant["distance"] = calculateDistance(params[:lat], restaurant["geometry"]["location"]["lat"], params[:long], restaurant["geometry"]["location"]["lng"])
       restaurantsArray << restaurant
     }
-    yield json: restaurantsArray
+  
+    yield json: restaurantsArray 
 
   end
 
