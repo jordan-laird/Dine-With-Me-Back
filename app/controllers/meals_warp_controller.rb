@@ -22,11 +22,12 @@ class MealsWarpController < ApplicationController
     end
 
     def create(params)
+        # byebug
         @meal = Meal.create!(meal_params)
         invite_parameters = invite_params
         invite_parameters["meal_id"] = @meal.id
         Invite.create!(invite_parameters)
-        
+        yield @meal
     end
 
     def destroy(params)

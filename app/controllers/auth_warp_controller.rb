@@ -1,4 +1,5 @@
 class AuthWarpController < ApplicationController
+    skip_before_action :check_authentication
 
     def create(params)
 
