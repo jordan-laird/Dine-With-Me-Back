@@ -3,7 +3,7 @@ class AuthWarpController < ApplicationController
 
     def create(params)
 
-        user = User.find_by(email: params[:email])
+        user = User.find_by(email: params[:email].downcase)
         if user && user.authenticate(params[:password])
             
             yield json: {
