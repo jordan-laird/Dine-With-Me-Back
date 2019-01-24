@@ -1,29 +1,39 @@
 
 class RestaurantsWarpController < ApplicationController
-  def create(params)
-    response = JSON.parse(RestClient.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{params[:lat]},#{params[:long]}&key=#{Figaro.env.googleKey}&radius=16093.4&type=restaurant&keyword="))
-    restaurantDetails = []
-    response["results"].each do |restaurant| 
-      begin
-      test = RestClient.get("https://maps.googleapis.com/maps/api/place/details/json?key=#{Figaro.env.googleKey}&placeid=#{restaurant["place_id"]}&fields=geometry,name,formatted_address,formatted_phone_number,website")
-     rescue => e
-      byebug
+  def index(params)
+    current_user = self.logged_in_user
+    this = self
+    User.after_update do | user |
+      if(current_user.id.to_i == user.id.to_i)
+        yield json: this.findRestaurants(user)
       end
-      restaurantDetails << JSON.parse(test)["result"]
-
-    end
-    # puts restaurantDetails
-    restaurantsArray = [] 
-    
-    restaurantDetails.map{ |restaurant|
-      restaurant["distance"] = calculateDistance(params[:lat], restaurant["geometry"]["location"]["lat"], params[:long], restaurant["geometry"]["location"]["lng"])
-      restaurantsArray << restaurant
-    }
+  end
+    yield json: findRestaurants(logged_in_user)
+  end
   
-    yield json: restaurantsArray 
+  def findRestaurants(logged_in_user)
+  response = JSON.parse(RestClient.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=#{logged_in_user.lat},#{logged_in_user.long}&key=#{Figaro.env.googleKey}&radius=8046.72&type=restaurant&keyword="))
+  restaurantDetails = []
+  response["results"].slice(0,8).each do |restaurant| 
+    begin
+    test = RestClient.get("https://maps.googleapis.com/maps/api/place/details/json?key=#{Figaro.env.googleKey}&placeid=#{restaurant["place_id"]}&fields=geometry,name,formatted_address,formatted_phone_number,website")
+   rescue => e
+    byebug
+    end
+    restaurantDetails << JSON.parse(test)["result"]
 
   end
+  # puts restaurantDetails
+  restaurantsArray = [] 
+  
+  restaurantDetails.map{ |restaurant|
+    restaurant["distance"] = calculateDistance(logged_in_user.lat, restaurant["geometry"]["location"]["lat"], logged_in_user.long, restaurant["geometry"]["location"]["lng"])
+    restaurantsArray << restaurant
+  }
 
+  return restaurantsArray 
+
+end
   def calculateDistance(a1, a2, lo1, lo2)
     lat1 = a1.to_f
     lat2 = a2.to_f
