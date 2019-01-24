@@ -40,7 +40,7 @@ class UsersWarpController < ApplicationController
     end
 
     def user_params
-        params.permit(:first_name,:last_name,:email,:password, :lat, :long, :avatar)
+        params.permit(:first_name,:last_name,:email,:password, :lat, :long, :user_description)
     end
 
 end
