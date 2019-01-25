@@ -6,6 +6,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :password_digest
       t.float :lat, default: 29.760427
+      t.string :user_description, default: "Sorry, there is no description at this time."
       t.float :long, default: -95.369804
       t.timestamps
     end

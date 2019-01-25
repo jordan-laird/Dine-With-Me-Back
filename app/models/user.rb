@@ -7,4 +7,7 @@ class User < ApplicationRecord
     has_many :messages
     has_many :users, through: :messages
     # validations
+    def email=(value)
+        super(value.downcase)
+    end
 end

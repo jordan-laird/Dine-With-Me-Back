@@ -1,4 +1,5 @@
 class UsersWarpController < ApplicationController
+    skip_before_action :check_authentication, only: [:create]
     def index(params)
         User.after_create do
             yield json: User.all
@@ -22,7 +23,6 @@ class UsersWarpController < ApplicationController
     end
 
     def create(params)
-        byebug
         @user = User.create(user_params)
         # if User.exists?(email: params[:email]) # I think this should be `user_params[:email]` instead of `params[:email]`
         #   flash[:error] = "User already exists." 
@@ -40,7 +40,7 @@ class UsersWarpController < ApplicationController
     end
 
     def user_params
-        params.permit(:first_name,:last_name,:email,:password, :lat, :long, :avatar)
+        params.permit(:first_name,:last_name,:email,:password, :lat, :long, :user_description)
     end
 
 end
