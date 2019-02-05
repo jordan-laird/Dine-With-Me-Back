@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Joshua-Miles/warp-cable.git
-  revision: 1495935c724505105772e85c0e32694b8f694879
+  revision: aed760184419bd114c684df1739c2e9c55c7e578
   specs:
     warp-cable (0.1.0)
       rails (~> 5.2.1)
@@ -67,7 +67,7 @@ GEM
       activesupport (>= 4.2.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (1.5.2)
+    i18n (1.5.3)
       concurrent-ruby (~> 1.0)
     jwt (2.1.0)
     listen (3.1.5)
@@ -94,6 +94,7 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    pg (1.1.4)
     puma (3.12.0)
     rack (2.0.6)
     rack-cors (1.0.2)
@@ -144,7 +145,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.13)
     thor (0.20.3)
     thread_safe (0.3.6)
     tzinfo (1.2.5)
@@ -166,13 +166,13 @@ DEPENDENCIES
   figaro
   jwt
   listen (>= 3.0.5, < 3.2)
+  pg
   puma (~> 3.11)
   rack-cors
   rails (= 5.2.1)
   rest-client (~> 2.0, >= 2.0.2)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3
   tzinfo-data
   warp-cable!
 
